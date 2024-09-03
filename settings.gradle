@@ -1,0 +1,12 @@
+rootProject.name = 'ecs-admin'
+
+//API
+include ':api-utils'
+include ':api-common'
+
+//SERVER
+include ':admin-server'
+
+//VUE
+//include ':admin-vue'
+
