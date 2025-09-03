@@ -31,7 +31,7 @@ public class ServerHostService {
 
     private ServerHostRepository serverHostRepository;
 
-    private ServerConfigRepository serverConfigRepository;
+    private ServerConfigService serverConfigService;
 
     private String serverDir;
 
@@ -138,7 +138,7 @@ public class ServerHostService {
     public void delete(DeleteDto dto) {
         serverHostRepository.deleteAllById(dto.getIds().stream().map((id) -> {
             ObjectId hostId = new ObjectId(id);
-            if (serverConfigRepository.existsAllByHostId(hostId)) {
+            if (serverConfigService.existsByHostId(hostId)) {
                 throw new StandardRespondException("请先删除该主机的服务配置");
             }
             return hostId;

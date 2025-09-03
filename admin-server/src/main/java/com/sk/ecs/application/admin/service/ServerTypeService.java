@@ -35,7 +35,7 @@ public class ServerTypeService {
 
     private ServerTypeRepository serverTypeRepository;
 
-    private ServerConfigRepository serverConfigRepository;
+    private ServerConfigService serverConfigService;
 
     private String serverDir;
 
@@ -110,7 +110,7 @@ public class ServerTypeService {
     public void delete(DeleteDto dto) {
         serverTypeRepository.deleteAllById(dto.getIds().stream().map((id) -> {
             ObjectId typeId = new ObjectId(id);
-            if (serverConfigRepository.existsAllByTypeId(typeId)) {
+            if (serverConfigService.existsByTypeId(typeId)) {
                 throw new StandardRespondException("请先删除该类型的服务配置");
             }
             return typeId;

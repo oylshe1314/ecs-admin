@@ -1,4 +1,5 @@
 mongo = new Mongo();
+
 db = mongo.getDB("ecs_admin_dev_1");
 
 db.menu.insertMany([
@@ -500,7 +501,7 @@ db.admin.insertMany([
         roleId: ObjectId("000000000000000000000001"),
         role: {"$ref": "role", "$id": ObjectId("000000000000000000000001")},
         username: "admin",
-        password: "$100801$AqNWEzEt1eS0fGRh8XhEag==$n68WTs9Nv5wB/WCzB0IIpTfn7wKfd+LcxqxOTV4l16o=",
+        password: "$100801$ZK+purVNYumxYMoxPQTIMg==$Yp1s1fVJlViJM/6p7biowp147eCfCqLj0FsGc1AeWqU=",
         nickname: "管理员",
         avatar: "avatar7.png",
         email: "",

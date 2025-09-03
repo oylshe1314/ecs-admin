@@ -8,6 +8,7 @@ public enum MenuType {
 
     api(3, "接口"),
     ;
+
     private final int value;
     private final String desc;
 

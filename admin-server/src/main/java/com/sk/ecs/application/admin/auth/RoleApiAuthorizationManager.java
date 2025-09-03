@@ -5,37 +5,29 @@ import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 
 import java.util.function.Supplier;
 
 public class RoleApiAuthorizationManager implements AuthorizationManager<RequestAuthorizationContext> {
 
+    private final PathMatcher pathMatcher = new AntPathMatcher();
+
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authenticationSupplier, RequestAuthorizationContext context) {
         String reqPath = context.getRequest().getServletPath();
-        if (reqPath.startsWith("/error")) {
-            return new AuthorizationDecision(true);
-        }
-
         Authentication authentication = authenticationSupplier.get();
-        if (authentication instanceof AdminAuthToken) {
-
-            if (reqPath.startsWith("/common/")) {
+        if (authentication.isAuthenticated()) {
+            if (pathMatcher.match("/common/**", reqPath)) {
                 return new AuthorizationDecision(true);
             }
 
             for (GrantedAuthority grantedAuthority : ((AdminAuthToken) authentication).getAuthorities()) {
-                String apiPath = grantedAuthority.getAuthority();
-                if (apiPath.endsWith("/**")) {
-                    if (reqPath.startsWith(apiPath.substring(0, apiPath.length() - 3))) {
-
-                        return new AuthorizationDecision(true);
-                    }
+                if (pathMatcher.match(grantedAuthority.getAuthority(), reqPath)) {
+                    return new AuthorizationDecision(true);
                 } else {
-                    if (apiPath.equalsIgnoreCase(reqPath)) {
-
-                        return new AuthorizationDecision(true);
-                    }
+                    return new AuthorizationDecision(false);
                 }
             }
         }

@@ -41,7 +41,7 @@ public class AdminSecurityConfiguration {
         httpSecurity.securityContext(securityContext -> securityContext.securityContextRepository(securityContextRepository));
         httpSecurity.httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(adminAccessDeniedHandler));
         httpSecurity.exceptionHandling(exceptionHandling -> exceptionHandling.accessDeniedHandler(adminAccessDeniedHandler));
-        httpSecurity.authorizeHttpRequests(requests -> requests.requestMatchers("/doc/**", "/v3/api-docs/**").permitAll().anyRequest().access(new RoleApiAuthorizationManager()));
+        httpSecurity.authorizeHttpRequests(requests -> requests.requestMatchers("/doc/**", "/v3/api-docs/**", "/error/**").permitAll().anyRequest().access(new RoleApiAuthorizationManager()));
         httpSecurity.logout(logout -> logout.logoutUrl("/auth/logout").addLogoutHandler(adminLogoutHandler).logoutSuccessHandler(adminLogoutHandler));
 
         httpSecurity.addFilterAt(adminLoginFilter(), UsernamePasswordAuthenticationFilter.class);

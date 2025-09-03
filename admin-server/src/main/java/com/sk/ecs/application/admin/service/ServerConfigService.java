@@ -206,4 +206,12 @@ public class ServerConfigService {
     public void changeState(ChangeStateDto dto, AdminDetails operator) {
         serverConfigRepository.updateState(dto.getIds().stream().map(ObjectId::new).collect(Collectors.toSet()), dto.getState(), operator.getUsername(), LocalDateTime.now());
     }
+
+    public boolean existsByTypeId(ObjectId typeId) {
+        return serverConfigRepository.existsAllByTypeId(typeId);
+    }
+
+    public boolean existsByHostId(ObjectId hostId) {
+        return serverConfigRepository.existsAllByHostId(hostId);
+    }
 }

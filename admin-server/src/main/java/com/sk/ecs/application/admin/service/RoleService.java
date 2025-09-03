@@ -28,7 +28,8 @@ public class RoleService {
     protected static final ObjectId DEFAULT_ROLE_ID = new ObjectId("000000000000000000000001");
 
     private RoleRepository roleRepository;
-    private AdminRepository adminRepository;
+
+    private AdminService adminService;
 
     public Role get(ObjectId id) {
         return roleRepository.findById(id).orElse(null);
@@ -101,7 +102,7 @@ public class RoleService {
         if (ids.contains(DEFAULT_ROLE_ID)) {
             throw new StandardRespondException("默认角色禁止删除");
         }
-        if (adminRepository.existsByRoleIdIn(ids)) {
+        if (adminService.existsByRoleIds(ids)) {
             throw new StandardRespondException("请先删除角色下的管理员");
         }
 

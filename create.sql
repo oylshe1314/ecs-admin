@@ -105,7 +105,7 @@ CREATE TABLE Admin
   CHARSET = UTF8MB4, COMMENT '管理员表';
 
 INSERT INTO Admin (id, roleId, username, password, nickname, avatar, email, mobile, state, remark, createBy)
-VALUES (1, 1, 'admin', '$100801$AqNWEzEt1eS0fGRh8XhEag==$n68WTs9Nv5wB/WCzB0IIpTfn7wKfd+LcxqxOTV4l16o=', '管理员', 'avatar7.png', '', '', 1, '管理员', 'system');
+VALUES (1, 1, 'admin', '$100801$ZK+purVNYumxYMoxPQTIMg==$Yp1s1fVJlViJM/6p7biowp147eCfCqLj0FsGc1AeWqU=', '管理员', 'avatar7.png', '', '', 1, '管理员', 'system');
 
 DROP TABLE IF EXISTS ServerHost;
 CREATE TABLE ServerHost

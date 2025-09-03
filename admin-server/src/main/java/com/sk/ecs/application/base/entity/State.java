@@ -6,6 +6,7 @@ public enum State {
 
     enable(1, "启用"),
     ;
+
     private final int value;
     private final String desc;
 
@@ -31,8 +32,12 @@ public enum State {
         return state == null ? "未知" : state.desc();
     }
 
+    public static boolean enable(int value) {
+        return value != disable.value();
+    }
+
     public static boolean enable(Integer value) {
-        return value != null && value != disable.value();
+        return value != null && enable(value.intValue());
     }
 
 }

@@ -16,11 +16,11 @@ public class SettingService {
 
     private PasswordEncoder passwordEncoder;
 
-    private AdminRepository adminRepository;
+    private AdminService adminService;
 
     public void changeDetail(ChangeDetailDto dto, AdminDetails adminDetails) {
 
-        adminRepository.updateDetail(adminDetails.getId(), dto.getNickname(), dto.getAvatar(), dto.getEmail(), dto.getMobile());
+        adminService.updateDetail(adminDetails.getId(), dto);
 
         adminDetails.setNickname(dto.getNickname());
         adminDetails.setAvatar(dto.getAvatar());
@@ -35,7 +35,7 @@ public class SettingService {
 
         String newPassword = passwordEncoder.encode(dto.getNewPassword());
 
-        adminRepository.updatePassword(adminDetails.getId(), newPassword);
+        adminService.updatePassword(adminDetails.getId(), newPassword);
 
         adminDetails.setPassword(newPassword);
     }

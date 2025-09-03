@@ -161,4 +161,16 @@ public class AdminService {
         }
         adminRepository.updateState(ids, dto.getState(), operator.getUsername(), LocalDateTime.now());
     }
+
+    public boolean existsByRoleIds(Set<ObjectId> roleIds) {
+        return adminRepository.existsByRoleIdIn(roleIds);
+    }
+
+    public void updateDetail(ObjectId id, ChangeDetailDto dto) {
+        adminRepository.updateDetail(id, dto.getNickname(), dto.getAvatar(), dto.getEmail(), dto.getMobile());
+    }
+
+    public void updatePassword(ObjectId id, String password) throws Exception {
+        adminRepository.updatePassword(id, password);
+    }
 }
